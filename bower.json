@@ -1,0 +1,19 @@
+{
+  "name": "facehacksp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/willianjedai/facehacksp",
+  "authors": [
+    "Willian R. Sabião <willianjedai@gmail.com>",
+    "Lucas Barboza <noiase@gmail.com>"
+  ],
+  "description": "Project to Facebook Hackaton",
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

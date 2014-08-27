@@ -1,0 +1,22 @@
+{
+  "name": "FacebookHackatonSP",
+  "version": "0.0.0",
+  "description": "Project to Facebook Hackaton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willianjedai/facehacksp.git"
+  },
+  "author": "Willian R Sabiao - Lucas Barboza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willianjedai/facehacksp/issues"
+  },
+  "homepage": "https://github.com/willianjedai/facehacksp",
+  "dependencies": {
+    "express": "^4.8.5"
+  }
+}
