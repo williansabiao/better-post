@@ -1,7 +1,10 @@
-doctype html
-html
+doctype
+html(lang='pt', ng-app='app')
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title= title + ' teste'
+    link(rel='stylesheet', href='/css/style.css')
   body
     block content
+
+    block feet
+    script(src='/js/all.js', type='text/javascript')
