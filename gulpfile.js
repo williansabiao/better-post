@@ -20,7 +20,19 @@ bower.js = [
 ];
 bower.css = [
   bower.folder + 'bootstrap/dist/css/bootstrap.min.css',
-  bower.folder + 'bootstrap/dist/css/bootstrap-theme.min.css'
+  bower.folder + 'bootstrap/dist/css/bootstrap-theme.min.css',
+  bower.folder + 'components-font-awesome/css/font-awesome.min.css'
+];
+bower.fonts = [
+  bower.folder + 'bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
+  bower.folder + 'bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
+  bower.folder + 'bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
+  bower.folder + 'bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+  bower.folder + 'components-font-awesome/fonts/fontawesome-webfont.eot',
+  bower.folder + 'components-font-awesome/fonts/fontawesome-webfont.svg',
+  bower.folder + 'components-font-awesome/fonts/fontawesome-webfont.ttf',
+  bower.folder + 'components-font-awesome/fonts/fontawesome-webfont.woff',
+  bower.folder + 'components-font-awesome/fonts/FontAwesome.otf'
 ];
 assets.folder = './public/'
 assets.less = [
@@ -44,6 +56,11 @@ gulp.task('jsConcat', function () {
     .pipe( gulp.dest('./public/js/') )
 });
 
+gulp.task('fonts', function () {
+  gulp.src( bower.fonts )
+    .pipe( gulp.dest('./public/fonts/') )
+});
+
 gulp.task('less', function () {
   gulp.src( assets.less )
     .pipe(plumber())
@@ -54,7 +71,7 @@ gulp.task('less', function () {
     .pipe( reload({stream:true}) );
 });
 
-gulp.task('css', ['less'], function () {
+gulp.task('css', ['less', 'fonts'], function () {
   gulp.src( ( bower.css ).concat( assets.css ) )
     .pipe(plumber())
     .pipe( sourcemaps.init() )
