@@ -10,19 +10,28 @@ FB.options({
     redirectUri:    config.facebook.redirectUri
 });
 
+
+router.redirect = function(req, res, next) {
+  var accessToken = req.session.access_token;
+  if(!accessToken && req.url == "/app") {
+      res.redirect('/');
+  }
+  next();
+};
+
 router.index = function(req, res) {
-    var accessToken = req.session.access_token;
-    if(!accessToken) {
-        res.render('index', {
-            loginUrl: FB.getLoginUrl({ scope: 'user_about_me,publish_actions,manage_pages,read_insights,read_stream' })
-        });
-    } else {
-        res.redirect('/app');
-    }
+  var accessToken = req.session.access_token;
+  if(!accessToken) {
+    res.render('index', {
+        loginUrl: FB.getLoginUrl({ scope: 'user_about_me,publish_actions,manage_pages,read_insights,read_stream' })
+    });
+  } else {
+    res.redirect('/app');
+  }
 };
 
 router.loginCallback = function (req, res, next) {
-    var code            = req.query.code;
+    var code = req.query.code;
 
     if(req.query.error) {
         // user might have disallowed the app
@@ -55,14 +64,17 @@ router.loginCallback = function (req, res, next) {
             req.session.access_token    = result.access_token;
             req.session.expires         = result.expires || 0;
 
-            if(req.query.state) {
-                var parameters              = JSON.parse(req.query.state);
+            if(req.query.code) {
+                var parameters              = {};
                 parameters.access_token     = req.session.access_token;
+                parameters.fields           = ['name','username','likes','access_token', 'category','link'];
 
                 console.log(parameters);
 
-                FB.api('/me/' + config.facebook.appNamespace +':eat', 'post', parameters , function (result) {
+                FB.api('/me/accounts', 'get', parameters , function (result) {
+                    
                     console.log(result);
+
                     if(!result || result.error) {
                         return res.send(500, result || 'error');
                         // return res.send(500, 'error');
@@ -83,6 +95,8 @@ router.logout = function (req, res) {
 };
 
 /* GET home page. */
+router.get('*', router.redirect);
+
 router.get('/', router.index);
 
 /* GET login-facebook. */

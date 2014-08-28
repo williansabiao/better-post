@@ -1,7 +1,7 @@
 doctype
 html(lang='pt', ng-app='appTest')
   head
-    title= title + ' teste'
+    title= 'Better Page'
     meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(charset='utf-8')
     link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700')
@@ -15,7 +15,7 @@ html(lang='pt', ng-app='appTest')
       .col-xs-6.pull-right.text-right
         .nav-right
           a() Settings
-          a() Logout
+          a(href="/logout", target="_self") Logout
     .container-fluid.main-content
       block content
 
