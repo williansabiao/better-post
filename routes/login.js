@@ -12,7 +12,7 @@ FB.options({
 
 router.index = function(req, res) {
     var accessToken = req.session.access_token;
-    if(accessToken) {
+    if(!accessToken) {
         res.render('index', {
             loginUrl: FB.getLoginUrl({ scope: 'user_about_me,publish_actions,manage_pages,read_insights,read_stream' })
         });
