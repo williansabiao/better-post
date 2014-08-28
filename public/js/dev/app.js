@@ -8,10 +8,10 @@ app.config(function($routeProvider, $locationProvider) {
 
   $routeProvider
   .when('/app', {
-    templateUrl: 'partials/index'
+    templateUrl: '/partials/index'
   })
   .when('/app/register-pages', {
-    templateUrl: 'partials/register-pages',
+    templateUrl: '/partials/register-pages',
     controller: 'RegisterPagesCtrl'
   });
   return $locationProvider.html5Mode(true);
