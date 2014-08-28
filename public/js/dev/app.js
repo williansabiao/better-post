@@ -1,23 +1,18 @@
 var app;
 
-app = angular.module('app', ['ngRoute']);
-
-window.routes = {
-  '/app': {
-    templateUrl: 'partials/index'
-  }
-};
+app = angular.module('appTest', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
   var path, route, _ref;
   _ref = window.routes;
 
-  for (path in _ref) {
-    route = _ref[path];
-    $routeProvider.when(path, route);
-  }
-  $routeProvider.otherwise({
-    redirectTo: '/error'
+  $routeProvider
+  .when('/app', {
+    templateUrl: 'partials/index'
+  })
+  .when('/app/register-pages', {
+    templateUrl: 'partials/register-pages',
+    controller: 'RegisterPagesCtrl'
   });
   return $locationProvider.html5Mode(true);
 });
