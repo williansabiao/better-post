@@ -108,8 +108,8 @@ router.loginCallback = function (req, res, next) {
                                       id_fb: result.data[i].id,
                                       access_token: result.data[i].access_token,
                                       name: result.data[i].name,
-                                      username: result.data[i].username,
-                                      likes: result.data[i].likes,
+                                      username: result.data[i].username || "",
+                                      likes: result.data[i].likes || "",
                                       category: result.data[i].category,
                                       link: result.data[i].link,
                                       json_response: result.data[i],
@@ -128,8 +128,8 @@ router.loginCallback = function (req, res, next) {
                         });
                       } else {
                         req.session.user_id = user.id;
+                        return res.redirect('/app/dashboard');
                       }
-                      return res.redirect('/app/dashboard');
                     });
 
                 });

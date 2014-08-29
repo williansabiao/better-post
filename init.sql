@@ -21,11 +21,10 @@ CREATE TABLE `pages` (
   `likes` int(11) unsigned NOT NULL,
   `category` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
-  `json_response` varchar(255) NOT NULL,
+  `json_response` TEXT NOT NULL,
   `id__user` int(11) unsigned NOT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
   KEY `id__user` (`id__user`),
   KEY `id_fb` (`id_fb`),
   CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`id__user`) REFERENCES `user` (`id`)
