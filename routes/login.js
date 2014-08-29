@@ -23,7 +23,7 @@ router.index = function(req, res) {
   var accessToken = req.session.access_token;
   if(!accessToken) {
     res.render('index', {
-        loginUrl: FB.getLoginUrl({ scope: 'user_about_me,publish_actions,manage_pages,read_insights,read_stream' })
+        loginUrl: FB.getLoginUrl({ scope: 'user_about_me,publish_actions,manage_pages,read_insights,read_stream,email' })
     });
   } else {
     res.redirect('/app');
@@ -32,7 +32,8 @@ router.index = function(req, res) {
 
 router.loginCallback = function (req, res, next) {
     var code = req.query.code,
-        modelPages = GLOBAL.app.models.pages;
+        modelPages = GLOBAL.app.models.pages,
+        modelUser = GLOBAL.app.models.user;
 
     if(req.query.error) {
         // user might have disallowed the app
@@ -68,34 +69,64 @@ router.loginCallback = function (req, res, next) {
             if(req.query.code) {
                 var parameters              = {};
                 parameters.access_token     = req.session.access_token;
-                parameters.fields           = ['name','username','likes','access_token', 'category','link'];
+                parameters.fields           = ['id','name','email'];
 
-                FB.api('/me/accounts', 'get', parameters , function (result) {
+
+                FB.api('/me', 'get', parameters , function (result) {
                     if(!result || result.error) {
                         return res.send(500, result || 'error');
                         // return res.send(500, 'error');
                     }
 
-                    for(i in result.data) {
-                      modelPages.findOne({id_fb : result.data[i].id}).exec(function(error, page){
-                        if(!error && !page) {
-                          modelPages.create({
-                            id_fb: result.data[i].id,
-                            access_token: result.data[i].access_token,
-                            name: result.data[i].name,
-                            username: result.data[i].username,
-                            likes: result.data[i].likes,
-                            category: result.data[i].category,
-                            link: result.data[i].link,
-                            json_response: result.data[i]
-                          }).exec(function(err, page) {
-                            console.log('inserted', page, err);
-                          });
-                        }
-                      });
-                    }
+                    modelUser.findOne({fb_id : result.id}).exec(function(error, user){
+                      if(!error && !user) {
+                        console.log(result);
+                        modelUser.create({
+                          fb_id: result.id,
+                          fb_auth: req.session.access_token,
+                          name: result.name,
+                          email: result.email,
+                          picture: 'http://graph.facebook.com/' + result.id + '/picture?type=square',
+                        }).exec(function(err, user) {
+                          console.log('inserted user', user, err);
 
-                    return res.redirect('/');
+                          if(user) {
+                            req.session.user_id = user.id;
+                            parameters.fields = ['name','username','likes','access_token', 'category','link'];
+                            
+                            FB.api('/me/accounts', 'get', parameters , function (result) {
+                              if(!result || result.error) {
+                                  return res.send(500, result || 'error');
+                                  // return res.send(500, 'error');
+                              }
+
+                              for(i in result.data) {
+                                modelPages.findOne({id_fb : result.data[i].id, id__user: user.id}).exec(function(error, page){
+                                  if(!error && !page) {
+                                    modelPages.create({
+                                      id_fb: result.data[i].id,
+                                      access_token: result.data[i].access_token,
+                                      name: result.data[i].name,
+                                      username: result.data[i].username,
+                                      likes: result.data[i].likes,
+                                      category: result.data[i].category,
+                                      link: result.data[i].link,
+                                      json_response: result.data[i],
+                                      id__user: user.id
+                                    }).exec(function(err, page) {
+                                      console.log('inserted page', page, err);
+                                    });
+                                  }
+                                });
+                              }
+
+                              return res.redirect('/');
+                            });
+                          }
+                        });
+                      }
+                    });
+
                 });
             } else {
                 return res.redirect('/');
