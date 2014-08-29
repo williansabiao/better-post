@@ -16,7 +16,7 @@ bower.folder = './bower_components/';
 bower.js = [
   bower.folder + 'angular/angular.min.js',
   bower.folder + 'angular-route/angular-route.min.js',
-  bower.folder + 'angular-route/angular-resource.min.js',
+  bower.folder + 'angular-resource/angular-resource.min.js',
   bower.folder + 'bootstrap/js/bootstrap.min.js'
 ];
 bower.css = [
