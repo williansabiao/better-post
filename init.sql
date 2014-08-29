@@ -15,13 +15,13 @@ DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_fb` varchar(255) NOT NULL,
+  `access_token` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
   `username` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL,
+  `likes` int(11) unsigned NOT NULL,
   `category` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `json_response` varchar(255) NOT NULL,
-  `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_fb` (`id_fb`),
   UNIQUE KEY `username` (`username`)
