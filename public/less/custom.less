@@ -91,28 +91,125 @@ body {
 }
 
 .dashboard {
-  background-color: red;
+  background-color: #fff;
   counter-reset: column-number;
   height: 100%;
   overflow: auto;
   padding: 6px 0 6px 6px;
-  white-space: nowrap;
+  white-space: wrap;
   width: auto;
   position: relative;
   box-sizing: border-box;
 }
 .dash-wrapper {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
   white-space: nowrap;
 }
 .wall-of-posts {
-  background-color: #002002;
-  border: 2px solid #000;
+  background-color: #1A3161;
+  color: #726767;
+  border-radius: 5px;
+  border: 2px solid #fff;
+  padding: 5px;
   display: inline-block;
   width: 400px;
   height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  white-space: normal;
+
+  > header {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    h1 {
+      font-size: 1.5em;
+      padding: 0;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+
+  .posts {
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 6px 0 2px;
+    article {
+      padding: 40px 10px 10px;
+      > header {
+        white-space: nowrap;
+      }
+      img {
+        border-radius: 5px;
+        height: 50px;
+        width: 50px;
+        margin: 0 10px 0 0;
+        box-shadow: 1px 0px 2px 0px rgba(50, 50, 50, 0.7);
+        display: inline-block;
+      }
+      h3 {
+        display: inline-block;
+        font-size: 1.2em;
+        margin: 0;
+        padding: 0;
+        line-height: 1em;
+        white-space: normal;
+        vertical-align: middle;
+        padding-right: 10px;
+      }
+      .line {
+        vertical-align: top;
+        float: right;
+        margin-top: -30px;
+        width: 100%;
+        font-size: 0.9em;
+        time {
+          float: left;
+        }
+        span {
+          font-style: italic;
+          float: right;
+        }
+      }
+      p {
+        padding: 15px 0 0;
+      }
+      footer {
+        @margin-tags: 2px;
+        .tags {
+          margin: 0 -@margin-tags;
+        }
+        .label {
+          display: inline-block;
+          padding: 5px 6px;
+          margin: 2px @margin-tags;
+        }
+        .title {
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.8em;
+        }
+      }
+      .btn-add-tag {
+        margin-left: 4px;
+      }
+      .fa-plus {
+        margin: 0 1px 0 0;
+        padding: 0;
+      }
+      .btn-close {
+        margin-left: 8px;
+      }
+      .add-subject {
+        hr {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+
 }
