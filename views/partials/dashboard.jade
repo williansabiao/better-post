@@ -1,18 +1,108 @@
 .dashboard
   .dash-wrapper
-    .wall-of-posts
+    .wall-insert-post(ng-show='writePost')
+      .panel.panel-default
+        header.panel-heading Write post
+        .panel-body
+          p.bg-info(ng-hide='post.type')
+            | The recommended type to write now are: 
+            span.label.label-info Image
+            span.label.label-info Image and text
+          form(role='form', ng-submit='addMyPage()')
+            .form-group
+              select.form-control(ng-model='post.type')
+                option(value='') Select your type post
+                option(value='1') Image
+                option(value='2') Image and Text
+                option(value='3') Video
+                option(value='4') Video and Text
+                option(value='5') URL
+                option(value='6') URL and Text
+            div(ng-show='post.type')
+              p.bg-info 
+                | The recommended subjects to write now are: 
+                span.label.label-info dog
+                span.label.label-info cat
+                span.label.label-info marshmallow
+                span.label.label-info facebook
+                span.label.label-info dilma
+              .form-group(ng-show='post.type == 2 || post.type == 4|| post.type == 6')
+                label Insert text
+                textarea.form-control(ng-model='post.text')
+              .form-group(ng-show='post.type == 1 || post.type == 2')
+                label Insert image
+                input(type='file', ng-model='post.image')
+              .form-group(ng-show='post.type == 3 || post.type == 4')
+                label Insert video
+                input(type='file', ng-model='post.video')
+              .form-group(ng-show='post.type == 5 || post.type == 6')
+                label Insert link
+                input.form-control(type='url', placeholder='Insert here one link to share', ng-model='post.link')
+              hr
+              footer.content-tags
+                section.tags
+                  span.title Subjects: 
+                  br
+                  span.label.label-primary 
+                    span Cachorro
+                    span.btn-close
+                      .fa.fa-times
+                  a.btn-add-tag.btn.btn-xs.btn-primary(ng-click='addSubjectWrite = true')
+                    i.fa.fa-plus
+                .add-subject(role='form', ng-show='addSubjectWrite')
+                  hr
+                  .input-group
+                    input.form-control(type="text", placeholder='add one subject')
+                    span.input-group-btn
+                      input.btn.btn-primary.navbar-right(type='submit', value='Add')
+              hr
+              .form-group
+                .checkbox
+                  label
+                    input(type='checkbox')
+                    | Boost
+              .form-button.pull-right
+                a.btn.btn-default(href='#', ng-click='writePost = false; post.type = ""') Cancel
+                button.btn.btn-primary(type='submit') Post
+
+    .wall-of-posts.recommend-posts(ng-show='post.type')
       header
-        h1 Pagina do zé
+        h1 Your better posts
       section.posts
         article.post
           header
             .line
               time 10/08/14 - 10:20
-              span.type Texto com imagem
+              span.type Text
             img(src='/img/avatar.jpg')
-            h3 Fulano da xuripita farms eh nois que ta xuripita
-          p Mano zica do facebook
-          footer
+            h3 ScupBrasil
+          p EXCLUSIVO. Você sabe quais são os dias e horários mais movimentados das redes sociais? Descubra com o Horários Nobres, estudo realizado pelo Scup, os períodos mais agitados no Facebook, Twitter e Instagram:
+          footer.content-tags
+            section.tags
+              span.label.label-primary 
+                span Cachorro
+              span.label.label-primary 
+                span Animal
+              span.label.label-primary 
+                span Xurupita
+              span.label.label-primary 
+                span Test
+    .wall-of-posts
+      header
+        h1 My page - ScupBrasil
+        .btn-group.pull-right
+          a.tooltip-left(href='#', role='tooltip', aria-label='Write post', ng-click='writePost = true')
+            .fa.fa-pencil-square-o
+      section.posts
+        article.post
+          header
+            .line
+              time 10/08/14 - 10:20
+              span.type Text
+            img(src='/img/avatar.jpg')
+            h3 ScupBrasil
+          p EXCLUSIVO. Você sabe quais são os dias e horários mais movimentados das redes sociais? Descubra com o Horários Nobres, estudo realizado pelo Scup, os períodos mais agitados no Facebook, Twitter e Instagram:
+          footer.content-tags
             section.tags
               span.title Subjects: 
               span.label.label-primary 
@@ -47,8 +137,29 @@
                 span.input-group-btn
                   input.btn.btn-primary.navbar-right(type='submit', value='Add')
               hr
-    .wall-of-posts
-    .wall-of-posts
-    .wall-of-posts
-    .wall-of-posts
-    .wall-of-posts
+    .wall-of-posts(ng-repeat='page in pages')
+      header
+        h1 Other page - {{page.title}}
+      section.posts
+        article.post(ng-repeat='post in page.posts')
+          header
+            .line
+              time {{post.time}} - 10:20
+              span.type Text
+            img(ng-src='{{page.photo}}')
+            h3 {{page.title}}
+          p {{post.text}}
+          footer.content-tags
+            section.tags
+              span.title Subjects: 
+              span.label.label-primary(ng-repeat='subj in post.subjects')
+                span {{subj}}
+                span.btn-close
+                  .fa.fa-times
+            form.add-subject(role='form', ng-submit='post.subjects.push(post.valSubject); post.valSubject = ""')
+              hr
+              .input-group
+                input.form-control(type="text", placeholder='add one subject', ng-model='post.valSubject')
+                span.input-group-btn
+                  input.btn.btn-primary.navbar-right(type='submit', value='Add')
+          hr.big
