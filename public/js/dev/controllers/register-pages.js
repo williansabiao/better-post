@@ -1,20 +1,16 @@
-app.controller('RegisterPagesCtrl', function ( $scope, MyPagesService ) {
-  // MyPagesService.query().$promise.then(function( result ) {
-  //   $scope.othersPages = result;
-  // }).error(function(e) {
-    
-  // })
+app.controller('RegisterPagesCtrl', function ( $scope, $location, MyPagesService ) {
+  $scope.myPages = MyPagesService.query();
+  // $scope.myPages = [
+  //   { link: '', name: 'ScupBrasil' },
+  //   { link: '', name: 'Facebook' },
+  //   { link: '', name: 'Nintendo' },
+  //   { link: '', name: '9GAG' }
+  // ];
   $scope.othersPages = [
-    { url: '', name: 'ScupBrasil' },
-    { url: '', name: 'Facebook' },
-    { url: '', name: 'Nintendo' },
-    { url: '', name: '9GAG' }
-  ];
-  $scope.myPages = [
-    { url: '', name: 'My dog is bad' },
-    { url: '', name: 'Cats or die' },
-    { url: '', name: 'Firsttt' },
-    { url: '', name: '9GAG' }
+    // { link: '', name: 'ScupBrasil' },
+    // { link: '', name: 'Facebook' },
+    // { link: '', name: 'Nintendo' },
+    // { link: '', name: '9GAG' }
   ];
   $scope.myPagesSelected = [];
   $scope.selectYourPages = '';
@@ -37,5 +33,11 @@ app.controller('RegisterPagesCtrl', function ( $scope, MyPagesService ) {
   $scope.removeMyPage = function ( page, index ) {
     $scope.myPages.push( page );
     $scope.myPagesSelected.splice( index, 1 );
+  };
+
+  $scope.save = function () {
+    var savePages = $scope.myPagesSelected.concat($scope.othersPages);
+    MyPagesService.save(savePages);
+    $location.path("/app/dashboard");
   };
 });

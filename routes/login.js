@@ -113,7 +113,8 @@ router.loginCallback = function (req, res, next) {
                                       category: result.data[i].category,
                                       link: result.data[i].link,
                                       json_response: result.data[i],
-                                      id__user: user.id
+                                      id__user: user.id,
+                                      status: 0
                                     }).exec(function(err, page) {
                                       console.log('inserted page', page, err);
                                     });
@@ -125,8 +126,10 @@ router.loginCallback = function (req, res, next) {
                             });
                           }
                         });
+                      } else {
+                        req.session.user_id = user.id;
                       }
-                      return res.redirect('/app');
+                      return res.redirect('/app/dashboard');
                     });
 
                 });
