@@ -1,4 +1,9 @@
-app.controller('RegisterPagesCtrl', function ( $scope ) {
+app.controller('RegisterPagesCtrl', function ( $scope, MyPagesService ) {
+  // MyPagesService.query().$promise.then(function( result ) {
+  //   $scope.othersPages = result;
+  // }).error(function(e) {
+    
+  // })
   $scope.othersPages = [
     { url: '', name: 'ScupBrasil' },
     { url: '', name: 'Facebook' },

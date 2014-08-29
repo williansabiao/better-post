@@ -1,6 +1,52 @@
 .dashboard
   .dash-wrapper
     .wall-of-posts
+      header
+        h1 Pagina do zé
+      section.posts
+        article.post
+          header
+            .line
+              time 10/08/14 - 10:20
+              span.type Texto com imagem
+            img(src='/img/avatar.jpg')
+            h3 Fulano da xuripita farms eh nois que ta xuripita
+          p Mano zica do facebook
+          footer
+            section.tags
+              span.title Subjects: 
+              span.label.label-primary 
+                span Cachorro
+                span.btn-close
+                  .fa.fa-times
+              span.label.label-primary 
+                span Animal
+                span.btn-close
+                  .fa.fa-times
+              span.label.label-primary 
+                span Xurupita
+                span.btn-close
+                  .fa.fa-times
+              span.label.label-primary 
+                span Test
+                span.btn-close
+                  .fa.fa-times
+              span.label.label-primary 
+                span Test
+                span.btn-close
+                  .fa.fa-times
+              span.label.label-primary 
+                span Test
+                span.btn-close
+                  .fa.fa-times
+              a.btn-add-tag.btn.btn-xs.btn-primary(): i.fa.fa-plus
+            form.add-subject(role='form')
+              hr
+              .input-group
+                input.form-control(type="text", placeholder='add one subject')
+                span.input-group-btn
+                  input.btn.btn-primary.navbar-right(type='submit', value='Add')
+              hr
     .wall-of-posts
     .wall-of-posts
     .wall-of-posts
