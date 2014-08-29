@@ -1,26 +1,9 @@
+html {
+  height: 100%;
+}
 body {
   font-family: 'Open Sans',sans-serif;
-  > .main-header {
-    background-color: #3993cb;
-    color: #fff;
-    padding: 0 20px 10px;
-    vertical-align: top;
-    h1 {
-      font-size: 1.8em;
-      padding-right: 0;
-    }
-    .txt-by {
-      font-size: 0.4em;
-      padding: 0 5px 0 10px;
-    }
-    .nav-right a {
-      display: inline-block;
-      color: #fff;
-      text-transform: uppercase;
-      margin: 0 10px;
-      padding-top: 2px;
-    }
-  }
+  height: 100%;
 }
 .scup-logo {
   display: inline-block;
@@ -31,10 +14,53 @@ body {
   background-size: 50px 15px;
   text-indent: -999px;
 }
+.app-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.flex-content {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: stretch;
+}
+.main-header {
+  background-color: #3993cb;
+  color: #fff;
+  padding: 0 20px 10px;
+  vertical-align: top;
+  flex: 1 auto;
+  h1 {
+    font-size: 1.8em;
+    padding-right: 0;
+  }
+  .txt-by {
+    font-size: 0.4em;
+    padding: 0 5px 0 10px;
+  }
+  .nav-right a {
+    display: inline-block;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0 10px;
+    padding-top: 2px;
+  }
+}
 .main-content {
-  margin: 40px 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  flex: 1 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 .register-pages {
+  padding: 40px 0;
   .list-group li {
     &:hover {
       .btn-remove-page {
@@ -62,4 +88,31 @@ body {
 
 .btn .fa {
   margin-right: 10px;
+}
+
+.dashboard {
+  background-color: red;
+  counter-reset: column-number;
+  height: 100%;
+  overflow: auto;
+  padding: 6px 0 6px 6px;
+  white-space: nowrap;
+  width: auto;
+  position: relative;
+  box-sizing: border-box;
+}
+.dash-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+}
+.wall-of-posts {
+  background-color: #002002;
+  border: 2px solid #000;
+  display: inline-block;
+  width: 400px;
+  height: 100%;
 }

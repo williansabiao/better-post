@@ -7,17 +7,18 @@ html(lang='pt', ng-app='appTest')
     link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700')
     link(rel='stylesheet', href='/css/style.css')
   body(ng-cloak)
-    header.main-header.row
-      .col-xs-6.pull-left
-        h1 Better Post 
-          span.txt-by by
-          a(href='http://www.scup.com/', target='_blank').scup-logo
-      .col-xs-6.pull-right.text-right
-        .nav-right
-          a() Settings
-          a(href="/logout", target="_self") Logout
-    .container-fluid.main-content
-      block content
+    .flex-content
+      header.main-header
+        .col-xs-6.pull-left
+          h1 Better Post 
+            span.txt-by by
+            a(href='http://www.scup.com/', target='_blank').scup-logo
+        .col-xs-6.pull-right.text-right
+          .nav-right
+            a() Settings
+            a(href="/logout", target="_self") Logout
+      .container-fluid.main-content
+        block content
 
-    block feet
+      block feet
     script(src='/js/all.js', type='text/javascript')

@@ -13,6 +13,10 @@ app.config(function($routeProvider, $locationProvider) {
   .when('/app/register-pages', {
     templateUrl: '/partials/register-pages',
     controller: 'RegisterPagesCtrl'
+  })
+  .when('/app/dashboard', {
+    templateUrl: '/partials/dashboard',
+    controller: 'DashboardCtrl'
   });
   return $locationProvider.html5Mode(true);
 });

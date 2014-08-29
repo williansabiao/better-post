@@ -1,38 +1,43 @@
-.row.register-pages
-  section.col-md-5.col-md-offset-1.my-pages
-    .panel.panel-default
-      header.panel-heading My pages
-      .panel-body
-        p Here it is the list of the pages that you are administrator
+.container.register-pages
+  .row
+    section.col-md-5.col-md-offset-1.my-pages
+      .panel.panel-default
+        header.panel-heading My pages
+        .panel-body
+          p Here it is the list of the pages that you are administrator
 
-        form(role='form', ng-submit='addMyPage()')
-          .input-group
-            select.form-control(ng-model='selectYourPages', ng-options='page.name for page in myPages')
-              option(value='', selected) Select your page
-            span.input-group-btn
-              input.btn.btn-primary(type='submit', value='Add')
-      ul.list-group
-        li.list-group-item(ng-repeat='page in myPagesSelected') 
-          | {{page.name}}
-          a.btn-remove-page.pull-right(href='#', ng-click='removeMyPage(page, $$index)')
-            i.fa.fa-times 
+          form(role='form', ng-submit='addMyPage()', ng-show='myPages.length > 0')
+            .input-group
+              select.form-control(ng-model='selectYourPages', ng-options='page.name for page in myPages')
+                option(value='', selected) Select your page
+              span.input-group-btn
+                input.btn.btn-primary(type='submit', value='Add')
+        ul.list-group
+          li.list-group-item(ng-repeat='page in myPagesSelected') 
+            | {{page.name}}
+            a.btn-remove-page.pull-right(href='#', ng-click='removeMyPage(page, $$index)')
+              i.fa.fa-times 
 
-  section.col-md-5.col-md-offset-1.others-pages
-    .panel.panel-default
-      header.panel-heading 
-        span Others pages
-      .panel-body
-        p Here it is the list of the pages that you would like to compare
-        
-        form(role='form', ng-submit='addOtherPage()')
-          .input-group
-            span.input-group-addon facebook.com/
-            input.form-control(type='text', placeholder='Insert url of page', ng-model='urlPage')
-            span.input-group-btn
-              input.btn.btn-primary.navbar-right(type='submit', value='Add')
+    section.col-md-5.col-md-offset-1.others-pages
+      .panel.panel-default
+        header.panel-heading 
+          span Others pages
+        .panel-body
+          p Here it is the list of the pages that you would like to compare
+          
+          form(role='form', ng-submit='addOtherPage()')
+            .input-group
+              span.input-group-addon facebook.com/
+              input.form-control(type='text', placeholder='Insert url of page', ng-model='urlPage')
+              span.input-group-btn
+                input.btn.btn-primary.navbar-right(type='submit', value='Add')
 
-      ul.list-group
-        li.list-group-item(ng-repeat='page in othersPages') 
-          | {{page.name}}
-          a.btn-remove-page.pull-right(href='#', ng-click='removeOtherPage($$index)')
-            i.fa.fa-times
+        ul.list-group
+          li.list-group-item(ng-repeat='page in othersPages') 
+            | {{page.name}}
+            a.btn-remove-page.pull-right(href='#', ng-click='removeOtherPage($$index)')
+              i.fa.fa-times
+
+  .row
+    .btn.btn-group.navbar-right
+      a.btn.btn-primary(href='/app/dashboard') Done!
