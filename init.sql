@@ -112,7 +112,6 @@ CREATE TABLE `post_subject` (
   CONSTRAINT `post_subject_ibfk_2` FOREIGN KEY (`id__user`) REFERENCES `user` (`id`),
   CONSTRAINT `post_subject_ibfk_3` FOREIGN KEY (`id__post`) REFERENCES `post` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
