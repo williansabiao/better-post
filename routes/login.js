@@ -92,6 +92,7 @@ router.loginCallback = function (req, res, next) {
 
                           if(user) {
                             req.session.user_id = user.id;
+                            
                             parameters.fields = ['name','username','likes','access_token', 'category','link'];
                             
                             FB.api('/me/accounts', 'get', parameters , function (result) {
@@ -120,11 +121,12 @@ router.loginCallback = function (req, res, next) {
                                 });
                               }
 
-                              return res.redirect('/');
+                              return res.redirect('/app/register-pages');
                             });
                           }
                         });
                       }
+                      return res.redirect('/app');
                     });
 
                 });

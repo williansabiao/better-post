@@ -13,7 +13,8 @@ var Pages = waterline.Collection.extend({
     category: 'string',
     link: 'string',
     json_response: 'json',
-    id__user : { model : 'user' }
+    id__user : { model : 'user' },
+    status : 'integer'
   }
 });
 
