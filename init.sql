@@ -15,16 +15,19 @@ DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_fb` varchar(255) NOT NULL,
-  `access_token` varchar(255) NOT NULL,
+  `access_token` varchar(255) DEFAULT '',
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `likes` int(11) unsigned NOT NULL,
   `category` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
   `json_response` varchar(255) NOT NULL,
+  `id__user` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_fb` (`id_fb`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  KEY `id__user` (`id__user`),
+  KEY `id_fb` (`id_fb`),
+  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`id__user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -39,7 +42,7 @@ CREATE TABLE `post_type` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `post_type` WRITE;
 /*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
@@ -83,8 +86,8 @@ CREATE TABLE `post` (
   UNIQUE KEY `id_fb` (`id_fb`),
   KEY `id__post_type` (`id__post_type`),
   KEY `id__pages` (`id__pages`),
-  CONSTRAINT `post_ibfk_2` FOREIGN KEY (`id__pages`) REFERENCES `pages` (`id`),
-  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id__post_type`) REFERENCES `post_type` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `post_ibfk_4` FOREIGN KEY (`id__pages`) REFERENCES `pages` (`id`),
+  CONSTRAINT `post_ibfk_3` FOREIGN KEY (`id__post_type`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -99,11 +102,15 @@ CREATE TABLE `post_subject` (
   `subject` varchar(255) NOT NULL,
   `id__pages` int(11) unsigned NOT NULL,
   `id__user` int(11) unsigned NOT NULL,
+  `id__post` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id__pages` (`id__pages`,`id__user`),
   KEY `id__user` (`id__user`),
+  KEY `id__post` (`id__post`),
+  CONSTRAINT `post_subject_ibfk_4` FOREIGN KEY (`id__pages`) REFERENCES `pages` (`id`),
   CONSTRAINT `post_subject_ibfk_2` FOREIGN KEY (`id__user`) REFERENCES `user` (`id`),
-  CONSTRAINT `post_subject_ibfk_1` FOREIGN KEY (`id__pages`) REFERENCES `pages` (`id`)
+  CONSTRAINT `post_subject_ibfk_3` FOREIGN KEY (`id__post`) REFERENCES `post` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -114,35 +121,14 @@ CREATE TABLE `post_subject` (
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fb_id` varchar(255) NOT NULL,
   `fb_auth` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `picture` varchar(255) NOT NULL,
-  `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table user_pages
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user_pages`;
-
-CREATE TABLE `user_pages` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `id__pages` int(11) unsigned NOT NULL,
-  `id__user` int(11) unsigned NOT NULL,
-  `is_admin` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id__pages` (`id__pages`,`id__user`),
-  KEY `id__user` (`id__user`),
-  CONSTRAINT `user_pages_ibfk_2` FOREIGN KEY (`id__user`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_pages_ibfk_1` FOREIGN KEY (`id__pages`) REFERENCES `pages` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
