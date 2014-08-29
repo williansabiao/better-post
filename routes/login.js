@@ -31,7 +31,8 @@ router.index = function(req, res) {
 };
 
 router.loginCallback = function (req, res, next) {
-    var code = req.query.code;
+    var code = req.query.code,
+        modelPages = GLOBAL.app.models.pages;
 
     if(req.query.error) {
         // user might have disallowed the app
@@ -58,7 +59,7 @@ router.loginCallback = function (req, res, next) {
                 fb_exchange_token:  result.access_token
             }, this);
         },
-        function (err, result) {
+        function savePages(err, result) {
             if(err) return next(err);
 
             req.session.access_token    = result.access_token;
@@ -69,15 +70,29 @@ router.loginCallback = function (req, res, next) {
                 parameters.access_token     = req.session.access_token;
                 parameters.fields           = ['name','username','likes','access_token', 'category','link'];
 
-                console.log(parameters);
-
                 FB.api('/me/accounts', 'get', parameters , function (result) {
-                    
-                    console.log(result);
-
                     if(!result || result.error) {
                         return res.send(500, result || 'error');
                         // return res.send(500, 'error');
+                    }
+
+                    for(i in result.data) {
+                      modelPages.findOne({id_fb : result.data[i].id}).exec(function(error, page){
+                        if(!error && !page) {
+                          modelPages.create({
+                            id_fb: result.data[i].id,
+                            access_token: result.data[i].access_token,
+                            name: result.data[i].name,
+                            username: result.data[i].username,
+                            likes: result.data[i].likes,
+                            category: result.data[i].category,
+                            link: result.data[i].link,
+                            json_response: result.data[i]
+                          }).exec(function(err, page) {
+                            console.log('inserted', page, err);
+                          });
+                        }
+                      });
                     }
 
                     return res.redirect('/');
@@ -94,15 +109,16 @@ router.logout = function (req, res) {
     res.redirect('/');
 };
 
-/* GET home page. */
+/* GET validate login */
 router.get('*', router.redirect);
 
+/* GET home page. */
 router.get('/', router.index);
 
 /* GET login-facebook. */
 router.get('/loginCallback', router.loginCallback);
 
-/* GET login-facebook. */
+/* GET logout-facebook. */
 router.get('/logout', router.logout);
 
 module.exports = router;

@@ -1,9 +1,21 @@
 #!/usr/bin/env node
 var debug = require('debug')('facehacksp');
 var app = require('../app');
+var orm = require('../models/models');
+var ormConfig = require('../config').orm;
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
+var server;
+
+orm.initialize(ormConfig, function(err, models) {
+  if(err) throw err;
+  app.models = models.collections;
+  app.connections = models.connections;
+
+  server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+    GLOBAL.app = app;
+  });
+
 });
