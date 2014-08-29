@@ -34,14 +34,24 @@ body {
 .main-content {
   margin: 40px 0;
 }
-.others-pages {
-  display: inline-block;
-  width: 50px;
-  height: 15px;
-  margin: 0 0 -6px;
-  background-image: url(../img/scup-logo-pb.svg);
-  background-size: 50px 15px;
-  text-indent: -999px;
+.register-pages {
+  .list-group li {
+    &:hover {
+      .btn-remove-page {
+        display: block;
+      }
+    }
+  }
+  .btn-remove-page {
+    display: none;
+    color: #fff;
+    font-size: 0.8em;
+    .fa {
+      background-color: #a3a3a3;
+      border-radius: 100%;
+      padding: 5px;
+    }
+  }
 }
 
 /* Home */
