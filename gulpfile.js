@@ -16,12 +16,11 @@ bower.folder = './bower_components/';
 bower.js = [
   bower.folder + 'angular/angular.min.js',
   bower.folder + 'angular-route/angular-route.min.js',
-  bower.folder + 'angular-resource/angular-resource.min.js',
-  bower.folder + 'bootstrap/js/bootstrap.min.js'
+  bower.folder + 'angular-resource/angular-resource.min.js'
 ];
 bower.css = [
-  bower.folder + 'bootstrap/dist/css/bootstrap.min.css',
-  bower.folder + 'bootstrap/dist/css/bootstrap-theme.min.css',
+  bower.folder + 'Bootflat/css/bootstrap.min.css',
+  bower.folder + 'Bootflat/bootflat/css/bootflat.min.css',
   bower.folder + 'components-font-awesome/css/font-awesome.min.css'
 ];
 bower.fonts = [

@@ -112,12 +112,11 @@ body {
   white-space: nowrap;
 }
 .wall-of-posts {
+  background-color: #eee;
   vertical-align: top;
-  background-color: #1A3161;
   color: #726767;
   border-radius: 5px;
   border: 2px solid #fff;
-  padding: 5px;
   display: inline-block;
   width: 400px;
   height: 100%;
@@ -126,8 +125,7 @@ body {
   white-space: normal;
 
   > header {
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: #eee;
     padding: 10px;
     vertical-align: middle;
     h1 {
@@ -136,6 +134,11 @@ body {
       padding: 0;
       margin: 0;
       font-weight: 400;
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
     }
     .btn-group {
       font-size: 1.2em;
@@ -145,20 +148,35 @@ body {
     background-color: #3993cb;
   }
   .posts {
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: #eee;
+    padding: 3px;
     margin: 6px 0 2px;
+    overflow-y: scroll;
+    height: 100%;
     article {
-      padding: 40px 10px 10px;
+      background-color: #fff;
+      margin-bottom: 3px;
+      padding: 10px;
       > header {
         white-space: nowrap;
+        vertical-align: top;
+        float: right;
+        width: 100%;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        time {
+          float: left;
+        }
+        span {
+          font-style: italic;
+          float: right;
+        }
       }
       img {
         border-radius: 5px;
         height: 50px;
         width: 50px;
         margin: 0 10px 0 0;
-        box-shadow: 1px 0px 2px 0px rgba(50, 50, 50, 0.7);
         display: inline-block;
       }
       h3 {
@@ -170,20 +188,6 @@ body {
         white-space: normal;
         vertical-align: middle;
         padding-right: 10px;
-      }
-      .line {
-        vertical-align: top;
-        float: right;
-        margin-top: -30px;
-        width: 100%;
-        font-size: 0.9em;
-        time {
-          float: left;
-        }
-        span {
-          font-style: italic;
-          float: right;
-        }
       }
       p {
         padding: 15px 0 0;
@@ -251,5 +255,5 @@ footer.content-tags {
 }
 
 hr.big {
-  border-top: 2px solid #B6B3B3;
+  border-top: 1px solid #B6B3B3;
 }
